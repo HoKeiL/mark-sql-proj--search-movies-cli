@@ -47,7 +47,7 @@ async function searchMovies() {
                 const addFavQuery = await client.query(addFavText, addFaValues);
 
                 //show on console and comfirm movie has been added to favourites
-                const addFavResult = await client.query("SELECT * from favourites");
+                const addFavResult = await client.query("SELECT * from favourites JOIN movies ON favourites.movie_id = movies.id");
                 console.table(addFavResult.rows);
                 console.log("Added " + movieNameFromList[addFav] + " to favourites!")
             }
@@ -58,7 +58,7 @@ async function searchMovies() {
     } else if (action === '2') {
         console.log(`OK! Let's see favourite!`)
         await client.connect();
-        const text = 'SELECT * from favourites LIMIT 10 '
+        const text = "SELECT * from favourites JOIN movies ON  favourites.movie_id = movies.id"
         const result = await client.query(text)
         console.table(result.rows)
         await client.end()
