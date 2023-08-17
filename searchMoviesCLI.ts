@@ -30,8 +30,8 @@ async function searchMovies() {
                 } else {
                     //search and show results
                     console.log('Searching ' + searchTerm + '...');
-                    const text = 'SELECT id, name, date, runtime, budget, revenue, vote_average, votes_count from movies WHERE name iLIKE $1 AND kind = \'movie\' ORDER BY date DESC LIMIT 10 '
-                    const values = [`%${searchTerm}%`];
+                    const text = 'SELECT id, name, date, runtime, budget, revenue, vote_average, votes_count from movies WHERE name iLIKE $1 AND kind = $2 ORDER BY date DESC LIMIT 9 '
+                    const values = [`%${searchTerm}%`, 'movie'];
                     const result = await client.query(text, values);
                     console.table(result.rows);
 
